@@ -1,0 +1,7 @@
+black
+matplotlib
+numpy
+pandas
+pydot
+pylint
+tensorflow-gpu
