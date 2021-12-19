@@ -1,0 +1,29 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, ready_for_review ]
+
+jobs:
+  pylint:
+    name: Pylint code inspection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./convnet"
+      - name: Install dependencies in CI mode
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+      - name: Run Pylint inspections
+        run: |
+          pylint ./convnet
